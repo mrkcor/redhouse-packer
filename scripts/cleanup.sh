@@ -21,12 +21,6 @@ dpkg --list \
     | grep linux-source \
     | xargs apt-get -y purge;
 
-# Delete development packages
-dpkg --list \
-    | awk '{ print $2 }' \
-    | grep -- '-dev$' \
-    | xargs apt-get -y purge;
-
 # delete docs packages
 dpkg --list \
     | awk '{ print $2 }' \
@@ -40,7 +34,7 @@ apt-get -y purge libx11-data xauth libxmuu1 libxcb1 libx11-6 libxext6;
 apt-get -y purge ppp pppconfig pppoeconf;
 
 # Delete oddities
-apt-get -y purge popularity-contest installation-report command-not-found friendly-recovery bash-completion fonts-ubuntu-font-family-console laptop-detect;
+apt-get -y purge popularity-contest installation-report command-not-found friendly-recovery fonts-ubuntu-font-family-console laptop-detect;
 
 # 19.10+ don't have this package so fail gracefully
 apt-get -y purge command-not-found-data || true;

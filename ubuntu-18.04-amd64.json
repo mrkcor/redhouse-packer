@@ -53,7 +53,8 @@
   "post-processors": [
     {
       "output": "{{ user `build_directory` }}/{{user `box_basename`}}.{{.Provider}}.box",
-      "type": "vagrant"
+      "type": "vagrant",
+      "vagrantfile_template" : "{{template_dir}}/Vagrantfile"
     }
   ],
   "provisioners": [
@@ -73,6 +74,36 @@
         "{{template_dir}}/scripts/sudoers.sh",
         "{{template_dir}}/scripts/vagrant.sh",
         "{{template_dir}}/scripts/virtualbox.sh",
+        "{{template_dir}}/scripts/build-tools.sh",
+        "{{template_dir}}/scripts/services.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+      "expect_disconnect": true,
+      "scripts": [
+        "{{template_dir}}/scripts/rbenv.sh",
+        "{{template_dir}}/scripts/ruby-build.sh",
+        "{{template_dir}}/scripts/ruby.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "environment_vars": [
+        "HOME_DIR=/home/vagrant",
+        "http_proxy={{user `http_proxy`}}",
+        "https_proxy={{user `https_proxy`}}",
+        "no_proxy={{user `no_proxy`}}"
+      ],
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+      "expect_disconnect": true,
+      "scripts": [
         "{{template_dir}}/scripts/cleanup.sh",
         "{{template_dir}}/scripts/minimize.sh"
       ],
