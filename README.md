@@ -1,4 +1,4 @@
-# Introductino
+# Introduction
 
 This repository contains the [Packer](https://www.packer.io/) template used for building the [Vagrant](https://www.vagrantup.com/) base box that is used by Redhouse. 
 
