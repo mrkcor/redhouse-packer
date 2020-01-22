@@ -1,5 +1,10 @@
 #!/bin/sh -eux
 
+# Correct permissions
+chown -R vagrant:vagrant /home/vagrant/.config
+chown -R vagrant:vagrant /home/vagrant/.my.cnf
+chown -R vagrant:vagrant /home/vagrant/.wget-hsts
+
 # Delete Linux source
 dpkg --list \
     | awk '{ print $2 }' \
