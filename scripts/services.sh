@@ -9,8 +9,8 @@ apt-get install -y nodejs
 /usr/bin/npm install -g yarn
 
 # MariaDB
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.ubuntu-tw.org/mirror/mariadb/repo/10.4/ubuntu bionic main'
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://ftp.ubuntu-tw.org/mirror/mariadb/repo/10.4/ubuntu bionic main'
 
 apt-get -y update
 apt-get -y install mariadb-server
@@ -24,18 +24,22 @@ mysql --user="root" --password="secret" -e "GRANT ALL ON *.* TO 'redhouse'@'%' I
 mysql --user="root" --password="secret" -e "FLUSH PRIVILEGES;"
 mysql --user="root" --password="secret" -e "CREATE DATABASE redhouse character set UTF8mb4 collate utf8mb4_bin;"
 
-sudo tee /home/vagrant/.my.cnf <<EOL
+tee /home/vagrant/.my.cnf <<EOL
 [mysqld]
 character-set-server=utf8mb4
 collation-server=utf8mb4_bin
 EOL
 
 # Postgres
-apt-get install -y postgresql postgresql-server-dev-10
+echo 'deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main' > /etc/apt/sources.list.d/pgdg.list
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
+apt-get update
+
+apt-get install -y postgresql-12 postgresql-server-dev-12
 
 # Configure Postgres Remote Access
-sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/10/main/postgresql.conf
-echo "host    all             all             10.0.2.2/32               md5" | tee -a /etc/postgresql/10/main/pg_hba.conf
+sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/12/main/postgresql.conf
+echo "host    all             all             10.0.2.2/32               md5" | tee -a /etc/postgresql/12/main/pg_hba.conf
 sudo -u postgres psql -c "CREATE ROLE redhouse LOGIN PASSWORD 'overyonder' SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
 sudo -u postgres psql -c "CREATE ROLE vagrant LOGIN SUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;"
 sudo -u postgres /usr/bin/createdb --echo --owner=redhouse redhouse
@@ -47,3 +51,4 @@ apt-get -y install nginx sqlite3 libsqlite3-dev redis influxdb influxdb-client w
 # Final package update
 apt-get -y update
 apt-get -y upgrade
+
