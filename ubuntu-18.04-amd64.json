@@ -75,7 +75,8 @@
         "{{template_dir}}/scripts/vagrant.sh",
         "{{template_dir}}/scripts/virtualbox.sh",
         "{{template_dir}}/scripts/build-tools.sh",
-        "{{template_dir}}/scripts/services.sh"
+        "{{template_dir}}/scripts/services.sh",
+        "{{template_dir}}/scripts/inotify-max.sh"
       ],
       "type": "shell"
     },
