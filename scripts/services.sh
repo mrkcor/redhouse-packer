@@ -49,7 +49,7 @@ sudo -u postgres /usr/bin/createdb --echo --owner=redhouse redhouse
 service postgresql restart
 
 # Other services & tools
-apt-get -y install nginx sqlite3 libsqlite3-dev redis influxdb influxdb-client wkhtmltopdf
+apt-get -y install nginx sqlite3 libsqlite3-dev redis influxdb influxdb-client wkhtmltopdf librsvg2-bin
 
 # Final package update
 apt-get -y update
