@@ -33,21 +33,21 @@
       "guest_os_type": "Ubuntu_64",
       "hard_drive_interface": "sata",
       "headless": "{{ user `headless` }}",
-      "http_directory": "{{template_dir}}/http",
+      "http_directory": "{{user `http_directory`}}",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `mirror`}}/{{user `mirror_directory`}}/{{user `iso_name`}}",
-      "output_directory": "{{ user `build_directory` }}/packer-{{user `box_basename`}}-virtualbox",
+      "output_directory": "{{ user `build_directory` }}/packer-{{user `template`}}-virtualbox",
       "shutdown_command": "echo 'vagrant' | sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
       "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
+      "ssh_timeout": "10000s",
       "type": "virtualbox-iso",
       "memory": "{{ user `memory` }}",
       "cpus": "{{ user `cpus` }}",
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "{{ user `box_basename` }}"
+      "vm_name": "{{ user `template` }}"
     }
   ],
   "post-processors": [
@@ -110,24 +110,32 @@
       ],
       "type": "shell"
     }
+
   ],
   "variables": {
     "box_basename": "redhouse",
-    "build_directory": "{{template_dir}}/builds",
+    "build_directory": "../../builds",
+    "http_directory": "{{template_dir}}/http",
+    "build_timestamp": "{{isotime \"20060102150405\"}}",
     "cpus": "2",
     "disk_size": "131072",
+    "git_revision": "__unknown_git_revision__",
     "headless": "",
     "http_proxy": "{{env `http_proxy`}}",
     "https_proxy": "{{env `https_proxy`}}",
+    "hyperv_generation": "2",
+    "hyperv_switch": "{{env `hyperv_switch`}}",
     "guest_additions_url": "",
-    "iso_checksum": "7d8e0055d663bffa27c1718685085626cb59346e7626ba3d3f476322271f573e",
+    "iso_checksum": "36f15879bd9dfd061cd588620a164a82972663fdd148cce1f70d57d314c21b73",
     "iso_checksum_type": "sha256",
-    "iso_name": "ubuntu-18.04.3-server-amd64.iso",
+    "iso_name": "ubuntu-20.04-legacy-server-amd64.iso",
     "memory": "2048",
     "mirror": "http://cdimage.ubuntu.com",
-    "mirror_directory": "ubuntu/releases/18.04.3/release",
+    "mirror_directory": "ubuntu-legacy-server/releases/20.04/release",
+    "name": "ubuntu-20.04",
     "no_proxy": "{{env `no_proxy`}}",
     "preseed_path": "preseed.cfg",
+    "template": "ubuntu-20.04-amd64",
     "version": "TIMESTAMP"
   }
 }

@@ -28,10 +28,10 @@ apt-get -y purge command-not-found-data || true;
 # Exlude the files we don't need w/o uninstalling linux-firmware
 echo "==> Setup dpkg excludes for linux-firmware"
 cat <<_EOF_ | cat >> /etc/dpkg/dpkg.cfg.d/excludes
-#BENTO-BEGIN
+#REDHOUSE-BEGIN
 path-exclude=/lib/firmware/*
 path-exclude=/usr/share/doc/linux-firmware/*
-#BENTO-END
+#REDHOUSE-END
 _EOF_
 
 # Delete the massive firmware packages

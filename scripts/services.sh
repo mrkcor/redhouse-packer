@@ -9,11 +9,11 @@ apt-get install -y nodejs
 /usr/bin/npm install -g yarn
 
 # Postgres
-echo 'deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main' > /etc/apt/sources.list.d/pgdg.list
+echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/sources.list.d/pgdg.list
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 apt-get update
 
-apt-get install -y postgresql-12 postgresql-server-dev-12
+apt-get install -y postgresql-12 postgresql-server-dev-12 postgresql-12-postgis-3
 
 # Configure Postgres Remote Access
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/12/main/postgresql.conf
@@ -25,10 +25,7 @@ sudo -u postgres psql -c "CREATE ROLE root LOGIN SUPERUSER INHERIT NOCREATEDB NO
 service postgresql restart
 
 # Other services & tools
-apt-get -y install nginx sqlite3 libsqlite3-dev redis influxdb influxdb-client wkhtmltopdf librsvg2-bin imagemagick
-
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb
-dpkg -i ripgrep_12.0.1_amd64.deb
+apt-get -y install nginx sqlite3 libsqlite3-dev redis influxdb influxdb-client wkhtmltopdf librsvg2-bin imagemagick ripgrep fzf
 
 # Final package update
 apt-get -y update
