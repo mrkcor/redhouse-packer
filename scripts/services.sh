@@ -13,7 +13,7 @@ echo 'deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main' > /etc/apt/s
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 apt-get update
 
-apt-get install -y postgresql-12 postgresql-server-dev-12 postgresql-12-postgis-3
+apt-get install -y postgresql-12 postgresql-server-dev-12 postgresql-12-postgis-3 postgresql-12-repack
 
 # Configure Postgres Remote Access
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/12/main/postgresql.conf
