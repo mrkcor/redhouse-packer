@@ -13,7 +13,7 @@ echo 'deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 apt-get update
 
-apt-get install -y postgresql-14 postgresql-server-dev-14 postgresql-14-postgis-3 postgresql-14-repack
+apt-get install -y postgresql-14 postgresql-server-dev-14 postgresql-14-postgis-3 
 
 # Configure Postgres Remote Access
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/g" /etc/postgresql/14/main/postgresql.conf
