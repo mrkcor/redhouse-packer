@@ -1,8 +1,13 @@
 #!/bin/sh -eux
 
 # Correct permissions
-chown -R vagrant:vagrant /home/vagrant/.config
-chown -R vagrant:vagrant /home/vagrant/.wget-hsts
+if [ -d /home/vagrant/.config ]; then
+  chown -R vagrant:vagrant /home/vagrant/.config
+fi
+
+if [ -f /home/vagrant/.wget-hsts ]; then
+  chown -R vagrant:vagrant /home/vagrant/.wget-hsts
+fi
 
 # Delete Linux source
 dpkg --list \
