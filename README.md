@@ -1,3 +1,7 @@
+# Archived Repository
+
+This repository has been **archived** and is no longer actively maintained.
+
 # Introduction
 
 This repository contains the [Packer](https://www.packer.io/) template used 
